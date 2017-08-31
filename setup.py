@@ -16,7 +16,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 def opalRegistration():
     from bedrock.core.opals import manage_opals
-    algs = ['stan']
+    algs = ['Stan']
     for alg in algs:
         success = manage_opals("add","analytics","opals.stan.{0}.{0}".format(alg))
         if (success == False):
@@ -50,11 +50,11 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/bedrock-py/opal-analytics-stan',
+    url='https://github.com/tamisalex/opal-analytics-stan',
 
     # Author details
     author='Georgia Tech Research Institute',
-    author_email='jason.poovey@gtri.gatech.edu',
+    author_email='alexander.tam@gtri.gatech.edu',
 
     # Choose your license
     license='GPL',
@@ -95,7 +95,8 @@ setup(
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
         'bedrock',
-        'statsmodels'
+        'statsmodels',
+        'rpy2'
         ],
 
     # List additional groups of dependencies here (e.g. development
