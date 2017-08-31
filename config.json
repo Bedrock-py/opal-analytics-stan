@@ -1,0 +1,12 @@
+{ "opal-analytics-stan":
+        {
+    	    "description": "Opal for adding STAN bayesian functionality",
+            "units": "tobeadded.py",
+            "supports": "",
+            "python_dependencies": "numpy scipy sklearn",
+            "system_dependencies": "",
+            "api": "analytics",
+            "interface": "analytics",
+            "installation_script": ""
+        }
+}
