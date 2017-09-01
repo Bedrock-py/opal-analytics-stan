@@ -33,18 +33,18 @@ class Stan_GLM(Algorithm):
             { "name" : "prior_intercept", "attrname" : "prior_intercept" , "value" : "", "type" : "input"}
         ]
 
-    def check_parameters(self):
-        logging.error("Started check parms")
-        super(Stan_GLM, self).check_parameters()
+#     def check_parameters(self):
+#         logging.error("Started check parms")
+#         super(Stan_GLM, self).check_parameters()
 
-        if(check_valid_formula(self.formula) == False):
-            return False
+#         if(check_valid_formula(self.formula) == False):
+#             return False
 
-        self.family = self.family.lower()
+#         self.family = self.family.lower()
 
-        if (self.family != 'binomial(link = "logit")' and self.family != 'gaussian(link = "identity")'):
-            logging.error("GLM family {} not supported".format(self.family))
-            return False
+#         if (self.family != 'binomial(link = "logit")' and self.family != 'gaussian(link = "identity")'):
+#             logging.error("GLM family {} not supported".format(self.family))
+#             return False
             
         return True
     def __build_df__(self, filepath):
