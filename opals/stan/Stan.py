@@ -46,7 +46,7 @@ class Stan_GLM(Algorithm):
 #             logging.error("GLM family {} not supported".format(self.family))
 #             return False
             
-        return True
+#        return True
     def __build_df__(self, filepath):
         featuresPath = filepath['features.txt']['rootdir'] + 'features.txt'
         matrixPath = filepath['matrix.csv']['rootdir'] + 'matrix.csv'
