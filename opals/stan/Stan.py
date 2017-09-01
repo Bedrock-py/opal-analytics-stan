@@ -26,7 +26,7 @@ class Stan_GLM(Algorithm):
         
         self.parameters_spec = [
             { "name" : "Formula", "attrname" : "formula", "value" : "", "type" : "input" },
-            { "name" : "GLM family", "attrname" : "family", "value" : "binomial", "type" : "input" },
+            { "name" : "GLM family", "attrname" : "family", "value" : "", "type" : "input" },
             { "name" : "chains", "attrname" : "chains" , "value" : "", "type" : "input"},
             { "name" : "iter", "attrname" : "iter" , "value" : "", "type" : "input"},
             { "name" : "prior", "attrname" : "prior" , "value" : "", "type" : "input"},
