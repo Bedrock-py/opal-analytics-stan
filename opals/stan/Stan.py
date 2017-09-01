@@ -46,7 +46,6 @@ class Stan_GLM(Algorithm):
             return False
             
         return True
-exit
     def __build_df__(self, filepath):
         featuresPath = filepath['features.txt']['rootdir'] + 'features.txt'
         matrixPath = filepath['matrix.csv']['rootdir'] + 'matrix.csv'
