@@ -70,7 +70,7 @@ class Stan_GLM(Algorithm):
         
         rpy2.robjects.r('MyData <- read.csv(file="/home/atam6/git/bedrock-core/examples/RAND2011study/Rand2011PNAS_cooperation_data.csv", header=TRUE, sep=",")')
         rpy2.robjects.r('output = stan_glm(decision0d1c~round_num, data=MyData,family = binomial(link = "logit"), chains = 3, iter = 3000)')
-        prior_summary = rpy2.robjects.r('prior_summary<-prior_summary(model)')
-        summary = rpy2.robjects.r('summary<-summary(model)')
+        prior_summary = rpy2.robjects.r('prior_summary<-prior_summary(output)')
+        summary = rpy2.robjects.r('summary<-summary(output)')
 
         self.results = {'prior_summary.txt': prior_summary, 'summary.txt': summary}
