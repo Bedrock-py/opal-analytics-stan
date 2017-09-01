@@ -3,6 +3,7 @@ import os
 from bedrock.analytics.utils import Algorithm
 import pandas as pd
 import logging
+import rpy2
 import rpy2.robjects as robjects
 from rpy2.robjects import pandas2ri
 from rpy2.robjects.packages import importr
