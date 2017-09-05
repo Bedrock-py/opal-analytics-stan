@@ -33,20 +33,20 @@ class Stan_GLM(Algorithm):
             { "name" : "prior_intercept", "attrname" : "prior_intercept" , "value" : "", "type" : "input"}
         ]
 
-#     def check_parameters(self):
-#         logging.error("Started check parms")
-#         super(Stan_GLM, self).check_parameters()
+    def check_parameters(self):
+        logging.error("Started check parms")
+        super(Stan_GLM, self).check_parameters()
 
-#         if(check_valid_formula(self.formula) == False):
-#             return False
+        if(check_valid_formula(self.formula) == False):
+            return False
 
-#         self.family = self.family.lower()
+        self.family = self.family.lower()
 
-#         if (self.family != 'binomial(link = "logit")' and self.family != 'gaussian(link = "identity")'):
-#             logging.error("GLM family {} not supported".format(self.family))
-#             return False
-            
-#        return True
+        if (self.family != 'binomial(link = "logit")' and self.family != 'gaussian(link = "identity")'):
+            logging.error("GLM family {} not supported".format(self.family))
+            return False
+
+        return True
     def __build_df__(self, filepath):
         featuresPath = filepath['features.txt']['rootdir'] + 'features.txt'
         matrixPath = filepath['matrix.csv']['rootdir'] + 'matrix.csv'
@@ -80,4 +80,4 @@ class Stan_GLM(Algorithm):
         prior_summary = rpy2.robjects.r('prior_summary<-prior_summary(output)')
         summary = rpy2.robjects.r('summary<-summary(output)')
 
-        self.results = {'prior_summary.txt': prior_summary, 'summary.txt': summary}
+        self.results = {'prior_summary.txt': str(prior_summary), 'summary.txt': str(summary)}
