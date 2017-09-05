@@ -71,9 +71,9 @@ class Stan_GLM(Algorithm):
         
         robjects.globalenv["rdf"] = rdf
         
-        rglmString = output = "stan_glm({}, data=MyData,family = {}, chains = {}, iter = {})"
+        rglmString = "output = stan_glm({}, data=rdf,family = {}, chains = {}, iter = {}, prior = {}, prior_intercept = {})"
         
-        rglmStringFormatted = rglmString.format(kwargs["formula"],kwargs["family"],kwargs["chains"], kwargs["iter"], kwargs["prior"], kwargs["prior_intercept"])
+        rglmStringFormatted = rglmString.format(self.formula,self.family,self.chains, self.iter, self.prior, self.prior_intercept)
               
         
         rpy2.robjects.r('output = stan_glm(decision0d1c~round_num, data=rdf,family = binomial(link = "logit"), chains = 3, iter = 3000)')
