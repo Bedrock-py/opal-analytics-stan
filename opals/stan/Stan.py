@@ -80,4 +80,4 @@ class Stan_GLM(Algorithm):
         prior_summary = rpy2.robjects.r('prior_summary<-prior_summary(output)')
         summary = rpy2.robjects.r('summary<-summary(output)')
 
-        self.results = {'prior_summary.txt': prior_summary, 'summary.txt': summary}
+        self.results = {'prior_summary.txt': str(prior_summary), 'summary.txt': str(summary)}
