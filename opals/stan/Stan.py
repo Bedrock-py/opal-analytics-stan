@@ -67,8 +67,8 @@ class Stan_GLM(Algorithm):
 
     def compute(self, filepath, **kwargs): 
         
-        rpy2.robjects.r("install.packages('rstan')")
-        rpy2.robjects.r("install.packages('rstanarm')")
+        rpy2.robjects.r("if (!require('rstan')) install.packages('rstan')")
+        rpy2.robjects.r("if (!require('rstan')) install.packages('rstanarm')")
       
         rstan = importr("rstan")
         rstanarm = importr("rstanarm")
