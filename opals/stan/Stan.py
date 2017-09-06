@@ -56,15 +56,19 @@ class Stan_GLM(Algorithm):
         df.columns = featuresList.T.values[0]
 
         return df
+    
+    def write_output(self, rootpath, key, outputData):
+        filepath = rootpath + '/' + key
+
+        with open(filepath, 'w') as featuresFile:
+            if (key == 'summary.txt') | (key == 'prior_summary.txt'):
+                featuresFile.write(outputData)
 
 
-    def compute(self, filepath, **kwargs):
-        
-        print "load rstanarm"
-        
+    def compute(self, filepath, **kwargs):        
+      
         rstan = importr("rstan")
         rstanarm = importr("rstanarm")
-
         
         df = self.__build_df__(filepath)
         rdf = pandas2ri.py2ri(df)
@@ -76,7 +80,8 @@ class Stan_GLM(Algorithm):
         rglmStringFormatted = rglmString.format(self.formula,self.family,self.chains, self.iter, self.prior, self.prior_intercept)
               
         
-        rpy2.robjects.r('output = stan_glm("decision0d1c~round_num", data=rdf,family = binomial(link = "logit"), chains = 3, iter = 3000)')
+        #rpy2.robjects.r('output = stan_glm("decision0d1c~round_num", data=rdf,family = binomial(link = "logit"), chains = 3, iter = 3000)')
+        rpy2.robjects.r(rglmStringFormatted)
         prior_summary = rpy2.robjects.r('prior_summary<-prior_summary(output)')
         summary = rpy2.robjects.r('summary<-summary(output)')
 
