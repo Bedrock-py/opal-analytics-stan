@@ -18,9 +18,9 @@ def opalRegistration():
     from bedrock.core.opals import manage_opals
     algs = ['Stan_GLM']
     for alg in algs:
-        success = manage_opals("add","analytics","opals.stan.{0}.{1}".format('Stan',alg))
+        success = manage_opals("add","analytics","opals.stan.{0}.{1}".format('stan',alg))
         if (success == False):
-            success = manage_opals("reload","analytics","opals.stan.{0}.{1}".format('Stan',alg))
+            success = manage_opals("reload","analytics","opals.stan.{0}.{1}".format('stan',alg))
             if (success == False):
                 raise
 
@@ -44,7 +44,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.28',
+    version='0.29',
 
     description='stan analysis',
     long_description=long_description,

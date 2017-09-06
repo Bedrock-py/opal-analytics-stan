@@ -65,7 +65,10 @@ class Stan_GLM(Algorithm):
                 featuresFile.write(outputData)
 
 
-    def compute(self, filepath, **kwargs):        
+    def compute(self, filepath, **kwargs): 
+        
+        rpy2.robjects.r("install.packages('rstan')")
+        rpy2.robjects.r("install.packages('rstanarm')")
       
         rstan = importr("rstan")
         rstanarm = importr("rstanarm")
