@@ -18,9 +18,9 @@ def opalRegistration():
     from bedrock.core.opals import manage_opals
     algs = ['Stan_GLM']
     for alg in algs:
-        success = manage_opals("add","analytics","opals.stan.{0}.{1}".format('stan',alg))
+        success = manage_opals("add","analytics","opals.stan.{0}.{1}".format('Stan',alg))
         if (success == False):
-            success = manage_opals("reload","analytics","opals.stan.{0}.{1}".format('stan',alg))
+            success = manage_opals("reload","analytics","opals.stan.{0}.{1}".format('Stan',alg))
             if (success == False):
                 raise
 
