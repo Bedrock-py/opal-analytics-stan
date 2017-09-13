@@ -3,7 +3,7 @@ opal-analytics-stan
 
 ## Installation
 
-`pip install git+https://github.com/tamisalex/opal-analytics-stan.git`
+`pip install git+https://github.com/Bedrock-py/opal-analytics-stan.git`
 
 ## Parameters Spec for Bedrock
 
@@ -21,9 +21,9 @@ self.parameters_spec = [
 * `formula` A R-style formula for regression given as a string
 * `family` binomial(link = "logit") is the only family supported currently, future updates will add more families
 * `chains` number of chains to run
-* `iter` number of iterations 
-* `prior` expected format: student_t(-0.186, 0.036, df = 7) 
-* `prior intercept` expected fromat: student_t(0.662, 0.196, df = 7) 
+* `iter` number of iterations
+* `prior` expected format: student_t(-0.186, 0.036, df = 7)
+* `prior intercept` expected fromat: student_t(0.662, 0.196, df = 7)
 
 parameters derived from https://github.com/gallup/NGS2/blob/master/NGS2_WITNESS_Cycle1_bayesian_exp1.R
 

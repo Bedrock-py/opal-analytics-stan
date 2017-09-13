@@ -44,13 +44,13 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.31',
+    version='0.2',
 
     description='stan analysis',
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/tamisalex/opal-analytics-stan',
+    url='https://github.com/Bedrock-py/opal-analytics-stan',
 
     # Author details
     author='Georgia Tech Research Institute',
