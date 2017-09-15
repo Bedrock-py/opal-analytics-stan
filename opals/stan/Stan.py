@@ -5,8 +5,9 @@ import pandas as pd
 import logging
 import rpy2
 import rpy2.robjects as robjects
-from rpy2.robjects import pandas2ri
+from rpy2.robjects import r, pandas2ri
 from rpy2.robjects.packages import importr
+import csv
 
 def check_valid_formula(formula):
     # TODO: Look at `patsy` for helper function to validate more fully
@@ -19,11 +20,11 @@ class Stan_GLM(Algorithm):
         super(Stan_GLM, self).__init__()
         self.parameters = []
         self.inputs = ['matrix.csv','features.txt']
-        self.outputs = ['prior_summary.txt', 'summary.txt']
+        self.outputs = ['matrix.csv','prior_summary.txt']
         self.name ='Stan_GLM'
         self.type = 'GLM'
         self.description = 'Performs Stan_GLM analysis on the input dataset.'
-        
+
         self.parameters_spec = [
             { "name" : "Formula", "attrname" : "formula", "value" : "", "type" : "input" },
             { "name" : "GLM family", "attrname" : "family", "value" : "", "type" : "input" },
@@ -56,36 +57,49 @@ class Stan_GLM(Algorithm):
         df.columns = featuresList.T.values[0]
 
         return df
-    
-    def write_output(self, rootpath, key, outputData):
-        filepath = rootpath + '/' + key
 
-        with open(filepath, 'w') as featuresFile:
-            if (key == 'summary.txt') | (key == 'prior_summary.txt'):
-                featuresFile.write(outputData)
+    def compute(self, filepath, **kwargs):
+        r("if (!require('rstan')) install.packages('rstan')")
+        r("if (!require('rstanarm')) install.packages('rstanarm')")
 
-
-    def compute(self, filepath, **kwargs): 
-        
-        rpy2.robjects.r("if (!require('rstan')) install.packages('rstan')")
-        rpy2.robjects.r("if (!require('rstanarm')) install.packages('rstanarm')")
-      
         rstan = importr("rstan")
         rstanarm = importr("rstanarm")
-        
+        pandas2ri.activate()
+
         df = self.__build_df__(filepath)
         rdf = pandas2ri.py2ri(df)
-        
-        robjects.globalenv["rdf"] = rdf
-        
-        rglmString = "output = stan_glm({}, data=rdf,family = {}, chains = {}, iter = {}, prior = {}, prior_intercept = {})"
-        
-        rglmStringFormatted = rglmString.format(self.formula,self.family,self.chains, self.iter, self.prior, self.prior_intercept)
-              
-        
-        #rpy2.robjects.r('output = stan_glm("decision0d1c~round_num", data=rdf,family = binomial(link = "logit"), chains = 3, iter = 3000)')
-        rpy2.robjects.r(rglmStringFormatted)
-        prior_summary = rpy2.robjects.r('prior_summary<-prior_summary(output)')
-        summary = rpy2.robjects.r('summary<-summary(output)')
 
-        self.results = {'prior_summary.txt': str(prior_summary), 'summary.txt': str(summary)}
+        robjects.globalenv["rdf"] = rdf
+
+        rglmString = "output = stan_glm({}, data=rdf".format(self.formula)
+
+        if hasattr(self, 'family') and self.family != "":
+            rglmString += ", family = {}".format(self.family)
+        else:
+            rglmString += ', family = binomial(link = "logit")'
+
+        if hasattr(self, 'chains') and self.chains != "":
+            rglmString += ", chains = {}".format(self.chains)
+
+        if hasattr(self, 'iter') and self.iter != "":
+            rglmString += ", iter = {}".format(self.iter)
+
+        if hasattr(self, 'prior') and self.prior != "":
+            rglmString += ", prior = {}".format(self.prior)
+
+        if hasattr(self, 'prior_intercept') and self.prior_intercept != "":
+            rglmString += ", prior_intercept = {}".format(self.prior_intercept)
+
+        rglmString += ")"
+
+        logging.error(rglmString)
+        r(rglmString)
+        prior_summary_txt = r('ps<-prior_summary(output)')
+        summary_txt = r('s<-summary(output)')
+        summary = r('data.frame(s)')
+        summary_list = list(summary.to_csv().split('\n'))
+        logging.error(summary_list)
+        logging.error(summary.to_csv().split('\n'))
+
+        self.results = {'matrix.csv': list(csv.reader(summary.to_csv().split('\n'))),
+                        'prior_summary.txt': [str(prior_summary_txt)]}

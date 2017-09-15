@@ -34,5 +34,5 @@ parameters derived from https://github.com/gallup/NGS2/blob/master/NGS2_WITNESS_
 
 ## Outputs the following files
 
-`prior_summary.txt` print out of prior_summary() function (rstanarm)
-`summary.txt` print out of summary() function (rstanarm)
+`matrix.csv` data frame of summary() function on bayesian model
+`prior_summary.txt` Text summarizing prior information for model
