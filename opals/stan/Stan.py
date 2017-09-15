@@ -43,7 +43,11 @@ class Stan_GLM(Algorithm):
 
         self.family = self.family.lower()
 
-        if (self.family != 'binomial(link = "logit")' and self.family != 'gaussian(link = "identity")'):
+        if self.family == 'logit':
+            self.family = 'binomial(link = "logit")'
+        elif self.family == 'gaussian':
+            self.family = 'gaussian(link = "identity")'
+        else:
             logging.error("GLM family {} not supported".format(self.family))
             return False
 

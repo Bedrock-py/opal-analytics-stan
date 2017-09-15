@@ -10,7 +10,7 @@ opal-analytics-stan
 ```
 self.parameters_spec = [
     { "name" : "Formula", "attrname" : "formula", "value" : "decision0d1c ~ condition", "type" : "input" },
-    { "name" : "GLM family", "attrname" : "family", "value" : 'binomial(link = "logit")', "type" : "input" },
+    { "name" : "GLM family", "attrname" : "family", "value" : 'logit', "type" : "input" },
     { "name" : "chains", "attrname" : "chains" , "value" : "3", "type" : "input"},
     { "name" : "iter", "attrname" : "iter" , "value" : "3000", "type" : "input"},
     { "name" : "prior", "attrname" : "prior" , "value" : "", "type" : "input"},
