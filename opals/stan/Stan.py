@@ -63,9 +63,6 @@ class Stan_GLM(Algorithm):
         return df
 
     def compute(self, filepath, **kwargs):
-        r("if (!require('rstan')) install.packages('rstan')")
-        r("if (!require('rstanarm')) install.packages('rstanarm')")
-
         rstan = importr("rstan")
         rstanarm = importr("rstanarm")
         pandas2ri.activate()
