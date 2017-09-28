@@ -31,7 +31,8 @@ class Stan_GLM(Algorithm):
             { "name" : "chains", "attrname" : "chains" , "value" : "", "type" : "input"},
             { "name" : "iter", "attrname" : "iter" , "value" : "", "type" : "input"},
             { "name" : "prior", "attrname" : "prior" , "value" : "", "type" : "input"},
-            { "name" : "prior_intercept", "attrname" : "prior_intercept" , "value" : "", "type" : "input"}
+            { "name" : "prior_intercept", "attrname" : "prior_intercept" , "value" : "", "type" : "input"},
+            { "name" : "mixed_effect", "attrname" : "mixed_effect", "value" : "False", "type": "input"}
         ]
 
     def check_parameters(self):
@@ -51,7 +52,17 @@ class Stan_GLM(Algorithm):
             logging.error("GLM family {} not supported".format(self.family))
             return False
 
+        try:
+            if self.mixed_effect.lower() == "true":
+                self.func = "stan_glmer"
+            else:
+                self.func = "stan_glm"
+        except Exception:
+            self.func = "stan_glm"
+
         return True
+
+
     def __build_df__(self, filepath):
         featuresPath = filepath['features.txt']['rootdir'] + 'features.txt'
         matrixPath = filepath['matrix.csv']['rootdir'] + 'matrix.csv'
@@ -72,7 +83,7 @@ class Stan_GLM(Algorithm):
 
         robjects.globalenv["rdf"] = rdf
 
-        rglmString = "output = stan_glm({}, data=rdf".format(self.formula)
+        rglmString = "output = {}({}, data=rdf".format(self.func, self.formula)
 
         if hasattr(self, 'family') and self.family != "":
             rglmString += ", family = {}".format(self.family)
