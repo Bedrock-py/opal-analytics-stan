@@ -24,18 +24,22 @@ def opalRegistration():
             if (success == False):
                 raise
 
-
 class PostDevelopCommand(develop):
     """Post-installation for development mode."""
     def run(self):
-        #opalRegistration()
+        opalRegistration()
         develop.run(self)
 
 class PostInstallCommand(install):
     """Post-installation for installation mode."""
     def run(self):
-        #opalRegistration()
+        opalRegistration()
         install.run(self)
+
+class PostDockerInstallCommand(install):
+    def run(self):
+        install.run(self)
+
 
 
 setup(
@@ -83,6 +87,7 @@ setup(
     cmdclass={
         'develop': PostDevelopCommand,
         'install': PostInstallCommand,
+        'dockerinstall': PostDockerInstallCommand,
     },
 
     # Alternatively, if you want to distribute just a my_module.py, uncomment
