@@ -36,10 +36,6 @@ class PostInstallCommand(install):
         opalRegistration()
         install.run(self)
 
-class PostDockerInstallCommand(install):
-    def run(self):
-        install.run(self)
-
 
 
 setup(
@@ -87,7 +83,6 @@ setup(
     cmdclass={
         'develop': PostDevelopCommand,
         'install': PostInstallCommand,
-        'dockerinstall': PostDockerInstallCommand,
     },
 
     # Alternatively, if you want to distribute just a my_module.py, uncomment
